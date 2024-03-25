@@ -1,0 +1,9 @@
+FROM ubuntu:20.04
+WORKDIR /app
+COPY ./giropops-senhas .
+RUN chmod +x ./start.sh
+RUN apt-get update && apt-get install pip -y && apt-get install redis -y
+RUN pip install --no-cache-dir -r requirements.txt && pip install --upgrade flask
+ENV REDIS_HOST=localhost
+EXPOSE 5000
+ENTRYPOINT ["./start.sh"]
