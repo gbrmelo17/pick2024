@@ -7,3 +7,4 @@ RUN pip install --no-cache-dir -r requirements.txt && pip install --upgrade flas
 ENV REDIS_HOST=localhost
 EXPOSE 5000
 ENTRYPOINT ["./start.sh"]
+LABEL maintainer="gbrmelo"
