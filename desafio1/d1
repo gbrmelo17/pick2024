@@ -1,0 +1,5 @@
+#Instalar o Docker na maquina
+curl -fsSL https://get.docker.com | sh
+
+#Subir um container Nginx
+docker container run -d -p 80:80 --name ng1 nginx
