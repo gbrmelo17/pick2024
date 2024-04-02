@@ -1,0 +1,7 @@
+FROM cgr.dev/chainguard/python:latest-dev
+WORKDIR /app
+COPY ./giropops-senhas .
+RUN pip install --no-cache-dir -r requirements.txt --user && pip install --upgrade flask
+EXPOSE 5000
+ENTRYPOINT ["python3", "-m", "flask", "run", "--host=0.0.0.0"]
+LABEL maintainer="gbrmelo"
