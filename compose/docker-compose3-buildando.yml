@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  aplicacao:
+    build: ./dockerfiles
+    ports:
+       - "5000:5000"
+    networks:
+      - aplicacao
+    environment:
+      REDIS_HOST: database
+    volumes:
+      - volume:/aplicacao    
+
+  database:
+    image: redis
+    networks:
+      - aplicacao
+
+networks:
+    aplicacao:
+          driver: bridge
+
+volumes:
+  volume:

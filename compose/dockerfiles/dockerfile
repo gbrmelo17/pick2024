@@ -1,21 +1,12 @@
 FROM cgr.dev/chainguard/python:latest-dev as buildando
-
 WORKDIR /app
-
 COPY ./giropops-senhas .
-
 RUN pip install --no-cache-dir -r requirements.txt --user
 
 FROM cgr.dev/chainguard/python:latest
-
 WORKDIR /app
-
 COPY --from=buildando /home/nonroot/.local/lib/python3.12/site-packages /home/nonroot/.local/lib/python3.12/site-packages
-
-COPY ./giropops-senhas/app.py .
-
+COPY ./giropops-senhas .
 EXPOSE 5000
-
-ENTRYPOINT ["flask", "run", "--host=0.0.0.0"]
-
+ENTRYPOINT [ "python3", "-m", "flask", "run", "--host=0.0.0.0"]
 LABEL maintainer="gbrmelo"

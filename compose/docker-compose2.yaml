@@ -1,0 +1,22 @@
+version: '3'
+
+networks:
+  aplicacao:
+    driver: bridge
+      
+services:
+  aplicacao:
+    image: gbrmelo/pick-desafio2:8.0
+    ports:
+      - "5000:5000"
+    networks:
+      - aplicacao
+    environment:
+      REDIS_HOST: database
+
+  database:
+    image: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - aplicacao     
