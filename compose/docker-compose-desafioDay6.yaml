@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  giropops-senhas:
+    image: gbrmelo/pick-desafio2:8.0
+    ports: 
+      - "5000:5000"
+    networks:
+      - giropops
+    volumes:
+      - volume:/giropops-senhas
+    depends_on:
+      - redis
+    environment:
+      REDIS_HOST: redis    
+    labels:
+      com.docker.description: "Giropops"
+    deploy:    
+      resources:
+        reservations:
+          cpus: '0.10'
+          memory: 128M
+      restart_policy:
+           condition: unless-stopped
+           delay: 60s
+
+  redis:
+    image: redis
+    command: redis-server --appendonly yes
+    networks:
+      - giropops
+    volumes:
+      - volume:/strigus 
+networks:
+  giropops:
+    driver: bridge
+volumes:
+  volume:
