@@ -13,11 +13,11 @@ spec:
         name: primeiro-emptydir
     resources:
       limits:
-        cpu: "0.5"
-        memory: "128Mi"
+        cpu: 0.5
+        memory: 128Mi
       requests:
-        cpu: "0.3"
-        memory: "64Mi" 
+        cpu: 0.3
+        memory: 64Mi 
   - image: ubuntu
     name: ubuntu
     volumeMounts:
