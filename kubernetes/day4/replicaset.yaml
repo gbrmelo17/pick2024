@@ -1,27 +1,22 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: ReplicaSet
 metadata:
   labels:
-    app: gabriel-deployment
-  name: gabriel-deployment
+    app: gabriel-rs
+  name: gabriel-rs
   namespace: gabriel
 spec:
-  replicas: 10
+  replicas: 5
   selector:
     matchLabels:
-      app: gabriel-deployment
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
+      app: gabriel-rs
   template:
     metadata:
       labels:
-        app: gabriel-deployment
+        app: gabriel-rs
     spec:
       containers:
-        - image: nginx:1.17.0
+        - image: nginx:1.19.2
           name: nginx
           resources:
             limits:
