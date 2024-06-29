@@ -1,0 +1,10 @@
+apiVersion: v1
+data:
+  nginx.conf: "events {}\n\thttp {\n\t\tserver {\n\t\t\tlisten 80;\n\t\t\tlisten 443
+    ssl;\n\t\t\tssl_certificate /etc/nginx/tls/certificado.crt;\n\t\t\tssl_certificate_key
+    /etc/nginx/tls/chave-privada.key;\n\n\t\t\tlocation / {\n\t\t\t\treturn 200 'Gabriel
+    Teste Nginx em HTTPS com SSL\\n';\n\t\t\t\tadd_header Content-Type text/plain;\n\t\t\t}\n\t\t}\n\t}\n\n"
+kind: ConfigMap
+metadata: 
+  name: nginx-config
+  namespace: default
