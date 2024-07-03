@@ -1,0 +1,15 @@
+DEPLOY DO KUBE-PROMETHEUS NO CLUSTER EKS
+
+Clonar o repositorio do projeto
+'git clone https://github.com/prometheus-operator/kube-prometheus'
+
+Realizar a criação dos CRDs
+'kubectl create -f kube-prometheus/manifests/setup'
+OBS: CRDs (Custom Resource Definition) = extende o leque de recursos do K8S
+
+Realizar a criação de toda a stack de recursos do KUBE-PROMETHEUS definidos nos CRDS 
+para monitorar o cluster EKS de forma completa
+'kubectl apply -f kube-prometheus/manifests'
+
+A stack do KUBE-PROMETHEUS é composta pelo Prometheus, Grafana, AlertManager,
+NodeExporter Kube-State-Metrics e Prometheus-Adapter

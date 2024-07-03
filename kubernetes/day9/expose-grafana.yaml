@@ -1,0 +1,440 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"alert-router","app.kubernetes.io/instance":"main","app.kubernetes.io/name":"alertmanager","app.kubernetes.io/part-of":"kube-prometheus","app.kubernetes.io/version":"0.27.0"},"name":"alertmanager-main","namespace":"monitoring"},"spec":{"ports":[{"name":"web","port":9093,"targetPort":"web"},{"name":"reloader-web","port":8080,"targetPort":"reloader-web"}],"selector":{"app.kubernetes.io/component":"alert-router","app.kubernetes.io/instance":"main","app.kubernetes.io/name":"alertmanager","app.kubernetes.io/part-of":"kube-prometheus"},"sessionAffinity":"ClientIP"}}
+    creationTimestamp: "2024-07-03T00:12:35Z"
+    labels:
+      app.kubernetes.io/component: alert-router
+      app.kubernetes.io/instance: main
+      app.kubernetes.io/name: alertmanager
+      app.kubernetes.io/part-of: kube-prometheus
+      app.kubernetes.io/version: 0.27.0
+    name: alertmanager-main
+    namespace: monitoring
+    resourceVersion: "18874"
+    uid: aeef0300-c38e-48f6-be73-b170b8378c2a
+  spec:
+    clusterIP: 10.100.107.158
+    clusterIPs:
+    - 10.100.107.158
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: web
+      port: 9093
+      protocol: TCP
+      targetPort: web
+    - name: reloader-web
+      port: 8080
+      protocol: TCP
+      targetPort: reloader-web
+    selector:
+      app.kubernetes.io/component: alert-router
+      app.kubernetes.io/instance: main
+      app.kubernetes.io/name: alertmanager
+      app.kubernetes.io/part-of: kube-prometheus
+    sessionAffinity: ClientIP
+    sessionAffinityConfig:
+      clientIP:
+        timeoutSeconds: 10800
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2024-07-03T00:12:43Z"
+    labels:
+      managed-by: prometheus-operator
+      operated-alertmanager: "true"
+    name: alertmanager-operated
+    namespace: monitoring
+    ownerReferences:
+    - apiVersion: monitoring.coreos.com/v1
+      kind: Alertmanager
+      name: main
+      uid: 23df6374-c968-4055-b9e5-7f4abcdc6481
+    resourceVersion: "19194"
+    uid: 37c67381-9e60-4832-9f94-9f617b56d83b
+  spec:
+    clusterIP: None
+    clusterIPs:
+    - None
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: web
+      port: 9093
+      protocol: TCP
+      targetPort: web
+    - name: tcp-mesh
+      port: 9094
+      protocol: TCP
+      targetPort: 9094
+    - name: udp-mesh
+      port: 9094
+      protocol: UDP
+      targetPort: 9094
+    selector:
+      app.kubernetes.io/name: alertmanager
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"exporter","app.kubernetes.io/name":"blackbox-exporter","app.kubernetes.io/part-of":"kube-prometheus","app.kubernetes.io/version":"0.25.0"},"name":"blackbox-exporter","namespace":"monitoring"},"spec":{"ports":[{"name":"https","port":9115,"targetPort":"https"},{"name":"probe","port":19115,"targetPort":"http"}],"selector":{"app.kubernetes.io/component":"exporter","app.kubernetes.io/name":"blackbox-exporter","app.kubernetes.io/part-of":"kube-prometheus"}}}
+    creationTimestamp: "2024-07-03T00:12:35Z"
+    labels:
+      app.kubernetes.io/component: exporter
+      app.kubernetes.io/name: blackbox-exporter
+      app.kubernetes.io/part-of: kube-prometheus
+      app.kubernetes.io/version: 0.25.0
+    name: blackbox-exporter
+    namespace: monitoring
+    resourceVersion: "18886"
+    uid: 4124c8af-ff29-458d-b9ea-5e8f00c4a660
+  spec:
+    clusterIP: 10.100.84.54
+    clusterIPs:
+    - 10.100.84.54
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: https
+      port: 9115
+      protocol: TCP
+      targetPort: https
+    - name: probe
+      port: 19115
+      protocol: TCP
+      targetPort: http
+    selector:
+      app.kubernetes.io/component: exporter
+      app.kubernetes.io/name: blackbox-exporter
+      app.kubernetes.io/part-of: kube-prometheus
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2024-07-03T00:26:34Z"
+    labels:
+      app.kubernetes.io/component: grafana
+      app.kubernetes.io/name: grafana
+      app.kubernetes.io/part-of: kube-prometheus
+      app.kubernetes.io/version: 11.0.0
+    name: expose-grafana
+    namespace: monitoring
+    resourceVersion: "21366"
+    uid: 1ab16f37-839b-4803-838e-c439c7ca01be
+  spec:
+    clusterIP: 10.100.166.171
+    clusterIPs:
+    - 10.100.166.171
+    externalTrafficPolicy: Cluster
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - nodePort: 32624
+      port: 3000
+      protocol: TCP
+      targetPort: 3000
+    selector:
+      app.kubernetes.io/component: grafana
+      app.kubernetes.io/name: grafana
+      app.kubernetes.io/part-of: kube-prometheus
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"grafana","app.kubernetes.io/name":"grafana","app.kubernetes.io/part-of":"kube-prometheus","app.kubernetes.io/version":"11.0.0"},"name":"grafana","namespace":"monitoring"},"spec":{"ports":[{"name":"http","port":3000,"targetPort":"http"}],"selector":{"app.kubernetes.io/component":"grafana","app.kubernetes.io/name":"grafana","app.kubernetes.io/part-of":"kube-prometheus"}}}
+    creationTimestamp: "2024-07-03T00:12:35Z"
+    labels:
+      app.kubernetes.io/component: grafana
+      app.kubernetes.io/name: grafana
+      app.kubernetes.io/part-of: kube-prometheus
+      app.kubernetes.io/version: 11.0.0
+    name: grafana
+    namespace: monitoring
+    resourceVersion: "18945"
+    uid: 2f20bb64-c978-4874-91c7-16d9d0d2c779
+  spec:
+    clusterIP: 10.100.179.226
+    clusterIPs:
+    - 10.100.179.226
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: http
+      port: 3000
+      protocol: TCP
+      targetPort: http
+    selector:
+      app.kubernetes.io/component: grafana
+      app.kubernetes.io/name: grafana
+      app.kubernetes.io/part-of: kube-prometheus
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"exporter","app.kubernetes.io/name":"kube-state-metrics","app.kubernetes.io/part-of":"kube-prometheus","app.kubernetes.io/version":"2.12.0"},"name":"kube-state-metrics","namespace":"monitoring"},"spec":{"clusterIP":"None","ports":[{"name":"https-main","port":8443,"targetPort":"https-main"},{"name":"https-self","port":9443,"targetPort":"https-self"}],"selector":{"app.kubernetes.io/component":"exporter","app.kubernetes.io/name":"kube-state-metrics","app.kubernetes.io/part-of":"kube-prometheus"}}}
+    creationTimestamp: "2024-07-03T00:12:36Z"
+    labels:
+      app.kubernetes.io/component: exporter
+      app.kubernetes.io/name: kube-state-metrics
+      app.kubernetes.io/part-of: kube-prometheus
+      app.kubernetes.io/version: 2.12.0
+    name: kube-state-metrics
+    namespace: monitoring
+    resourceVersion: "18971"
+    uid: 1ce82bd5-5d60-4a4c-9498-55f3470a6f36
+  spec:
+    clusterIP: None
+    clusterIPs:
+    - None
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: https-main
+      port: 8443
+      protocol: TCP
+      targetPort: https-main
+    - name: https-self
+      port: 9443
+      protocol: TCP
+      targetPort: https-self
+    selector:
+      app.kubernetes.io/component: exporter
+      app.kubernetes.io/name: kube-state-metrics
+      app.kubernetes.io/part-of: kube-prometheus
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"exporter","app.kubernetes.io/name":"node-exporter","app.kubernetes.io/part-of":"kube-prometheus","app.kubernetes.io/version":"1.8.1"},"name":"node-exporter","namespace":"monitoring"},"spec":{"clusterIP":"None","ports":[{"name":"https","port":9100,"targetPort":"https"}],"selector":{"app.kubernetes.io/component":"exporter","app.kubernetes.io/name":"node-exporter","app.kubernetes.io/part-of":"kube-prometheus"}}}
+    creationTimestamp: "2024-07-03T00:12:36Z"
+    labels:
+      app.kubernetes.io/component: exporter
+      app.kubernetes.io/name: node-exporter
+      app.kubernetes.io/part-of: kube-prometheus
+      app.kubernetes.io/version: 1.8.1
+    name: node-exporter
+    namespace: monitoring
+    resourceVersion: "19003"
+    uid: 76efc3a4-17ca-4303-8c3a-fb14d2250659
+  spec:
+    clusterIP: None
+    clusterIPs:
+    - None
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: https
+      port: 9100
+      protocol: TCP
+      targetPort: https
+    selector:
+      app.kubernetes.io/component: exporter
+      app.kubernetes.io/name: node-exporter
+      app.kubernetes.io/part-of: kube-prometheus
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"metrics-adapter","app.kubernetes.io/name":"prometheus-adapter","app.kubernetes.io/part-of":"kube-prometheus","app.kubernetes.io/version":"0.12.0"},"name":"prometheus-adapter","namespace":"monitoring"},"spec":{"ports":[{"name":"https","port":443,"targetPort":6443}],"selector":{"app.kubernetes.io/component":"metrics-adapter","app.kubernetes.io/name":"prometheus-adapter","app.kubernetes.io/part-of":"kube-prometheus"}}}
+    creationTimestamp: "2024-07-03T00:12:37Z"
+    labels:
+      app.kubernetes.io/component: metrics-adapter
+      app.kubernetes.io/name: prometheus-adapter
+      app.kubernetes.io/part-of: kube-prometheus
+      app.kubernetes.io/version: 0.12.0
+    name: prometheus-adapter
+    namespace: monitoring
+    resourceVersion: "19075"
+    uid: 289aa29c-580a-4a53-aa3e-e99051a4b805
+  spec:
+    clusterIP: 10.100.66.2
+    clusterIPs:
+    - 10.100.66.2
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: https
+      port: 443
+      protocol: TCP
+      targetPort: 6443
+    selector:
+      app.kubernetes.io/component: metrics-adapter
+      app.kubernetes.io/name: prometheus-adapter
+      app.kubernetes.io/part-of: kube-prometheus
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"prometheus","app.kubernetes.io/instance":"k8s","app.kubernetes.io/name":"prometheus","app.kubernetes.io/part-of":"kube-prometheus","app.kubernetes.io/version":"2.53.0"},"name":"prometheus-k8s","namespace":"monitoring"},"spec":{"ports":[{"name":"web","port":9090,"targetPort":"web"},{"name":"reloader-web","port":8080,"targetPort":"reloader-web"}],"selector":{"app.kubernetes.io/component":"prometheus","app.kubernetes.io/instance":"k8s","app.kubernetes.io/name":"prometheus","app.kubernetes.io/part-of":"kube-prometheus"},"sessionAffinity":"ClientIP"}}
+    creationTimestamp: "2024-07-03T00:12:36Z"
+    labels:
+      app.kubernetes.io/component: prometheus
+      app.kubernetes.io/instance: k8s
+      app.kubernetes.io/name: prometheus
+      app.kubernetes.io/part-of: kube-prometheus
+      app.kubernetes.io/version: 2.53.0
+    name: prometheus-k8s
+    namespace: monitoring
+    resourceVersion: "19040"
+    uid: b644f728-862f-46f6-a9da-bf39b7714f2b
+  spec:
+    clusterIP: 10.100.120.1
+    clusterIPs:
+    - 10.100.120.1
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: web
+      port: 9090
+      protocol: TCP
+      targetPort: web
+    - name: reloader-web
+      port: 8080
+      protocol: TCP
+      targetPort: reloader-web
+    selector:
+      app.kubernetes.io/component: prometheus
+      app.kubernetes.io/instance: k8s
+      app.kubernetes.io/name: prometheus
+      app.kubernetes.io/part-of: kube-prometheus
+    sessionAffinity: ClientIP
+    sessionAffinityConfig:
+      clientIP:
+        timeoutSeconds: 10800
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2024-07-03T00:12:44Z"
+    labels:
+      managed-by: prometheus-operator
+      operated-prometheus: "true"
+    name: prometheus-operated
+    namespace: monitoring
+    ownerReferences:
+    - apiVersion: monitoring.coreos.com/v1
+      kind: Prometheus
+      name: k8s
+      uid: 8fd68d9f-30a9-4b24-8d76-c66a59998d47
+    resourceVersion: "19230"
+    uid: 55622f79-5319-4a47-b1af-2f1cca619053
+  spec:
+    clusterIP: None
+    clusterIPs:
+    - None
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: web
+      port: 9090
+      protocol: TCP
+      targetPort: web
+    selector:
+      app.kubernetes.io/name: prometheus
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"controller","app.kubernetes.io/name":"prometheus-operator","app.kubernetes.io/part-of":"kube-prometheus","app.kubernetes.io/version":"0.74.0"},"name":"prometheus-operator","namespace":"monitoring"},"spec":{"clusterIP":"None","ports":[{"name":"https","port":8443,"targetPort":"https"}],"selector":{"app.kubernetes.io/component":"controller","app.kubernetes.io/name":"prometheus-operator","app.kubernetes.io/part-of":"kube-prometheus"}}}
+    creationTimestamp: "2024-07-03T00:12:37Z"
+    labels:
+      app.kubernetes.io/component: controller
+      app.kubernetes.io/name: prometheus-operator
+      app.kubernetes.io/part-of: kube-prometheus
+      app.kubernetes.io/version: 0.74.0
+    name: prometheus-operator
+    namespace: monitoring
+    resourceVersion: "19105"
+    uid: 70e69564-189b-48a3-bb16-43ba701bd1c6
+  spec:
+    clusterIP: None
+    clusterIPs:
+    - None
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: https
+      port: 8443
+      protocol: TCP
+      targetPort: https
+    selector:
+      app.kubernetes.io/component: controller
+      app.kubernetes.io/name: prometheus-operator
+      app.kubernetes.io/part-of: kube-prometheus
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+kind: List
+metadata:
+  resourceVersion: ""

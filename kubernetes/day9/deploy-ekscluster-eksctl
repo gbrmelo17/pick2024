@@ -1,0 +1,17 @@
+DEPLOY DE UM CLUSTER EKS UTILIZANDO O EKSCTL
+
+Configurar as credenciais de acesso da AWS no AWSCLI
+Realizar a instalação do EKCTL
+
+Rodar o comando 'eksctl create cluster' com os parametros desajado do cluster
+como por exemplo, '--name=xxx --region=xxx --version=xxx --nodes=xxx'
+
+Apos a criação do cluster instalar o KUBECTL e mudar o arquivo de configuração para 
+utilizar o novo cluster criado pelo EKSCTL com o comando 'aws eks --region xxx update-kubeconfig --name xxxx'
+
+Validar as informaçoes do cluster utilizando o KUBECTL exemplo, 'kubectl get nodes'
+
+
+
+
+
