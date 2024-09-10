@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: ebs-pod
+spec:
+  containers:
+    - image: nginx
+      name: nginx
+      ports:
+        - containerPort: 80
+          name: http
+      volumeMounts:
+        - name: nginx-data
+          mountPath: /data
+  volumes:
+    - name: nginx-data
+      persistentVolumeClaim:
+        claimName: ebs-pvc

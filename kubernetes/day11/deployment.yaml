@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: giropops-app
+  name: giropops-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels: 
+      app: giropops-app
+  template:
+    metadata:
+      labels:
+        app: giropops-app
+    spec:
+      containers:
+        - image: linuxtips/giropops-senhas:1.0
+          name: app
+          ports:
+            - containerPort: 500
+          imagePullPolicy: Always
+          env:
+            - name: REDIS_HOST
+              value: redis-service
+
+
